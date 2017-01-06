@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="semantic/dist/semantic.css">
+
+
+  <style type="text/css">
+  body {
+    background-color: #FFFFFF;
+  }
+  .ui.menu .item img.logo {
+    margin-right: 1.5em;
+  }
+  .main.container {
+    margin-top: 7em;
+  }
+  .ui.footer.segment {
+    margin: 5em 0em 0em;
+    padding: 5em 0em;
+  }
+  </style>
+
+
+  <title>The Atlaschain</title>
+
+  <script src="dist/lightwallet.min.js"></script>
+  <script src="node_modules/jquery/dist/jquery.js"></script>
+  <script src="semantic/dist/semantic.min.js"></script>
+  <script src="node_modules/lodash/lodash.js"></script>
+  <script src="node_modules/async/lib/async.js"></script>
+  <script src="node_modules/storejs/dist/store.js"></script>
+
+  <script src="assets/mymail-crypt-util.js"></script>
+  <script src="assets/openpgp.js"></script>
+
+
+  <script src="node_modules/web3/dist/web3.js"></script>
+  <script src="node_modules/hooked-web3-provider/build/hooked-web3-provider.js"></script>
+  <script src="assets/app.js"></script>
+  <script src="assets/commander.js"></script>
+
+  <script>
+
+  var global_keystore;
+
+  jQuery(document).ready(function() {
+
+    var web3 = new Web3();
+    var global_keystore;
+
+    function setWeb3Provider(keystore) {
+      var web3Provider = new HookedWeb3Provider({
+        host: "http://eth.lightrains.com",
+        transaction_signer: keystore
+      });
+
+      web3.setProvider(web3Provider);
+    }
+
+    function newAddresses(password) {
+
+      if (password == '') {
+        password = prompt('Enter password to retrieve addresses', 'Password');
+      }
+
+      var numAddr = 1
+
+      lightwallet.keystore.deriveKeyFromPassword(password, function(err, pwDerivedKey) {
+
+      global_keystore.generateNewAddress(pwDerivedKey, numAddr);
+
+      var addresses = global_keystore.getAddresses();
+      getBalances();
+    })
+    }
+
+    function getBalances() {
+
+      var addresses = global_keystore.getAddresses();
+      var lastAddress = addresses[0];
+      sendEth(lastAddress);
+
+      document.getElementById('addr').innerHTML = 'Retrieving address...'
+      async.map(addresses, web3.eth.getBalance, function(err, balances) {
+        async.map(addresses, web3.eth.getTransactionCount, function(err, nonces) {
+          document.getElementById('addr').innerHTML = ''
+          for (var i=0; i<addresses.length; ++i) {
+            document.getElementById('addr').innerHTML += addresses[i]
+
+          }
+        })
+      })
+
+    }
+
+    function newWallet() {
+      var extraEntropy = '';
+      var randomSeed = lightwallet.keystore.generateRandomSeed(extraEntropy);
+
+      var infoString = 'Your new wallet seed is: "' + randomSeed +
+        '". Please write it down on paper or in a password manager, you will need it to access your wallet. Do not let anyone see this seed or they can take your Ether. ' +
+        'Please enter a password to encrypt your seed while in the browser.'
+      var password = prompt(infoString, 'Password');
+
+      lightwallet.keystore.deriveKeyFromPassword(password, function(err, pwDerivedKey) {
+
+      global_keystore = new lightwallet.keystore(
+        randomSeed,
+        pwDerivedKey);
+
+      newAddresses(password);
+      setWeb3Provider(global_keystore);
+      })
+    }
+
+    function sendEth(lastAddress) {
+      var fromAddr = web3.eth.coinbase
+      var toAddr = lastAddress
+      var valueEth = 5
+      var value = parseFloat(valueEth)*1.0e18
+      var gasPrice = 50000000000
+      var gas = 50000
+      web3.eth.sendTransaction({from: fromAddr, to: toAddr, value: value, gasPrice: gasPrice, gas: gas}, function (err, txhash) {
+        console.log('error: ' + err)
+        console.log('txhash: ' + txhash)
+        updateBalances();
+      })
+    }
+
+
+    function updateBalances() {
+      $('#addProfile').removeClass('loading');
+    }
+
+
+
+    $('#addProfile').click(function() {
+      $(this).addClass('loading');
+      newWallet('', function() {
+        $(this).removeClass('loading');
+
+      });
+
+
+    });
+
+    parsePublicKeys();
+    // parsePrivateKeys();
+
+  });
+
+
+
+
+</script>
+
+</head>
+<body>
+  <div class="ui fixed menu">
+    <div class="ui container">
+      <a href="#" class="header item">
+        <img class="logo" src="assets/atlaschain-square.png">
+        Atlaschain
+      </a>
+      <a href="#" class="item">Home</a>
+      <div class="ui simple dropdown item">
+        Dropdown <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="#">Link Item</a>
+          <a class="item" href="#">Link Item</a>
+          <div class="divider"></div>
+          <div class="header">Header Item</div>
+          <div class="item">
+            <i class="dropdown icon"></i>
+            Sub Menu
+            <div class="menu">
+              <a class="item" href="#">Link Item</a>
+              <a class="item" href="#">Link Item</a>
+            </div>
+          </div>
+          <a class="item" href="#">Link Item</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui main text container">
+    <div class="ui steps">
+      <a class="step">
+        <div class="content">
+          <div class="title">Keys</div>
+          <div class="description">Create your encryption keys</div>
+        </div>
+      </a>
+      <a class="active step">
+        <i class="credit card alternative icon"></i>
+        <div class="content">
+          <div class="title">Wallet</div>
+          <div class="description">Create Atlaschain Wallet</div>
+        </div>
+      </a>
+    </div>
+
+
+    <div class="ui text container">
+      <h2>Create Keys</h2>
+      <table class="ui fixed single line celled table">
+
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td id="kname" class="ten wide"></td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td id="kemail"></td>
+        </tr>
+
+        <tr>
+          <td>Public Key</td>
+          <td id="kpkeys"></td>
+        </tr>
+
+        <tr>
+          <td>Wallet Address</td>
+          <td id="addr">--</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <button class="ui button fluid blue" id="addProfile" >Generate Wallet</button>
+
+    </div>
+
+
+  </div>
+
+  <div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+      <div class="ui stackable inverted divided grid">
+        <div class="three wide column">
+          <h4 class="ui inverted header">Group 1</h4>
+          <div class="ui inverted link list">
+            <a href="#" class="item">Link One</a>
+            <a href="#" class="item">Link Two</a>
+            <a href="#" class="item">Link Three</a>
+            <a href="#" class="item">Link Four</a>
+          </div>
+        </div>
+
+        <div class="seven wide column">
+          <h4 class="ui inverted header">Footer Header</h4>
+          <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+
+
+</html>
