@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="semantic/dist/semantic.css">
+
+
+  <style type="text/css">
+  body {
+    background-color: #FFFFFF;
+  }
+  .ui.menu .item img.logo {
+    margin-right: 1.5em;
+  }
+  .main.container {
+    margin-top: 7em;
+  }
+  .ui.footer.segment {
+    margin: 5em 0em 0em;
+    padding: 5em 0em;
+  }
+  </style>
+
+  <title>Admin | Atlaschain</title>
+
+  <script src="node_modules/jquery/dist/jquery.js"></script>
+  <script src="semantic/dist/semantic.min.js"></script>
+  <script src="node_modules/storejs/dist/store.js"></script>
+
+</head>
+<body>
+  <div class="ui fixed menu">
+    <div class="ui container">
+      <a href="index.html" class="header item">
+        <img class="logo" src="assets/atlaschain-square.png">
+        Atlaschain
+      </a>
+      <a href="index.html" class="item">Home</a>
+      <a href="index.html" class="item">Start Now</a>
+      <a href="map.html" class="item">Interface</a>
+      <a href="admin.html" class="item">Administrator</a>
+    </div>
+  </div>
+
+  <div class="ui main text container">
+
+    <h2>Administration</h2>
+    <form action="" class="ui form">
+
+      <div class="field">
+        <label for="dept">Select Department</label>
+        <select name="dept" multiple="" class="ui fluid dropdown">
+          <option value="">Select Department</option>
+          <option>Department of Economic Development</option>
+          <option>Dubai Chamber</option>
+          <option>Dubai Customs</option>
+          <option>Dubai Smart Department</option>
+          <option>Dubai Municipality</option>
+          <option>Financial Audit Department</option>
+          <option>Land Department</option>
+          <option>Awqaf and Minors Affairs Foundation</option>
+          <option>Dubai Government Workshop</option>
+          <option>Dubai Police</option>
+          <option>Dubai Health Authority</option>
+          <option>Roads and Transport Authority</option>
+        </select>
+
+
+      </div>
+
+      <div class="field">
+        <label for="person">Select Employee(s)</label>
+        <select name="person" multiple="" class="ui fluid search dropdown">
+          <option value="">Select Employee</option>
+          <option>Mohammed bin Ali Al Abbar</option>
+          <option>Ban Abdul</option>
+          <option>Dr. Ali Al Numairy</option>
+          <option>Abdulatif Al Sayegh</option>
+          <option>Fatma Abdullah</option>
+          <option>Shahraban Abdullah</option>
+          <option>Ahlam</option>
+          <option>Juma al Majid</option>
+          <option>Ahmad Mohammad Hasher Al Maktoum</option>
+          <option>Maitha bint Mohammed bin Rashid Al Maktoum</option>
+          <option>Ahmed bin Saeed Al Maktoum</option>
+          <option>Mohammad Al Murr</option>
+          <option>Nasser Hassan Al-Shaikh</option>
+          <option>Ananya Yadav</option>
+          <option>Khalid Albudoor</option>
+          <option>Nujoom AlGhanem</option>
+          <option>Ali Rashid Lootah</option>
+          <option>Zeeshan Ali</option>
+          <option>Alia bint Khalifa bin Saeed al Maktoum</option>
+          <option>Khalifa AlJaziri</option>
+          <option>Hamdan bin Rashid Al Maktoum</option>
+          <option>Amhai</option>
+          <option>Diana Haddad</option>
+          <option>Hamdan bin Mohammed Al Maktoum</option>
+          <option>Mohammed Saeed Harib</option>
+          <option>Princess Haya bint Al Hussein</option>
+          <option>Hind bint Maktoum bin Juma Al Maktoum</option>
+        </select>
+      </div>
+
+      <div class="inline fields">
+        <label>Permissions</label>
+        <div class="field">
+          <div class="ui checkbox checkbox">
+            <input type="checkbox" id="ff" checked="checked">
+            <label for="ff">View</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui checkbox checkbox">
+            <input type="checkbox" id="ffd">
+            <label for="ffd">Comment</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui checkbox checkbox">
+            <input type="checkbox" id="erer">
+            <label for="erer">Update</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui checkbox checkbox">
+            <input type="checkbox" id="ter">
+            <label for="ter">Delete</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <button class="ui positive button">Assign Permissions</button>
+        <button class="ui yellow button">Cancel</button>
+      </div>
+
+
+    </form>
+
+  </div>
+
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+  <div class="ui hidden divider"></div>
+
+  <div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+      <div class="ui stackable inverted divided grid">
+        <div class="three wide column">
+          <h4 class="ui inverted header">Group 1</h4>
+          <div class="ui inverted link list">
+            <a href="#" class="item">Link One</a>
+            <a href="#" class="item">Link Two</a>
+            <a href="#" class="item">Link Three</a>
+            <a href="#" class="item">Link Four</a>
+          </div>
+        </div>
+
+        <div class="seven wide column">
+          <h4 class="ui inverted header">Footer Header</h4>
+          <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+<script>
+$('.ui.dropdown')
+.dropdown()
+;
+</script>
+
+</html>
