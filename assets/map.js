@@ -109,18 +109,87 @@ function initMap() {
 
 
 /******** Random geojson ****************/
-window.setInterval(function() {
+
+var category = [
+  "Department of Economic Development",
+  "Dubai Chamber",
+  "Dubai Customs",
+  "Dubai Smart Department",
+  "Dubai Municipality",
+  "Financial Audit Department",
+  "Land Department",
+  "Awqaf and Minors Affairs Foundation",
+  "Dubai Government Workshop",
+  "Dubai Police",
+  "Dubai Health Authority",
+  "Roads and Transport Authority"
+];
+
+var name = [
+  "Lorem Ipsum is simply",
+  "Dummy text of the printing",
+  "Ypesetting industry",
+  "Tandard dummy text",
+  "Ever since the 1500s",
+  "When an unknown printer",
+  "Scrambled it to make"
+  ];
+
+var icon = [
+ "bank.png",
+ "hospital.png",
+ "internet.png",
+ "restaurant.png",
+ "works.png"
+];
+
+var counter = 0;
+
+var looper = window.setInterval(function() {
+  counter++;
   var bounds = circle.getBounds();
   map.fitBounds(bounds);
   var sw = bounds.getSouthWest();
   var ne = bounds.getNorthEast();
   var ptLat = Math.random() * (ne.lat() - sw.lat()) + sw.lat();
   var ptLng = Math.random() * (ne.lng() - sw.lng()) + sw.lng();
-  var geoJsonData = GeoJSON.parse({name: 'Location A', category: 'Store', street: 'Market',lat: ptLat, lng: ptLng}, {Point: ['lat', 'lng'], include: ['name']});
-  console.log(geoJsonData);
+  var iconData = icon[Math.floor(Math.random() * icon.length)];
+
+  var geoJsonData = GeoJSON.parse({
+    Name: name[Math.floor(Math.random() * name.length)], 
+    Department: category[Math.floor(Math.random() * category.length)], 
+    icon: "assets/"+iconData,
+    lat: ptLat, 
+    lng: ptLng
+  }, 
+  {Point: ['lat', 'lng'], include: ['Name','icon','lat', 'lng']});
+
  map.data.addGeoJson(geoJsonData);
+ if (counter >= 15)
+  {
+      clearInterval(looper);
+  }
+
 }, Math.random() * (10000 - 3000) + 3000);
 
 /*********** end Random geojson ********************************/
+
+/********** Info Window ***********************/
+  var infowindow = new google.maps.InfoWindow();
+
+  map.data.addListener('click', function(event) {
+
+    var myHTML = "";
+    event.feature.forEachProperty(function(value,property) {
+      if (property != "icon")
+        myHTML += property + ': ' + value + "<br>";
+    });
+
+    infowindow.setContent("<div style='width:150px; text-align: center;'>"+myHTML+"</div>");
+        infowindow.setPosition(event.feature.getGeometry().get());
+    infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+        infowindow.open(map);
+  }); 
+/********** End Info Window *******************/
 }
 
