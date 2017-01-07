@@ -36,29 +36,13 @@
 <body onload="initMap()">
   <div class="ui fixed menu">
     <div class="ui container">
-      <a href="#" class="header item">
+      <a href="index.html" class="header item">
         <img class="logo" src="assets/atlaschain-square.png">
         Atlaschain
       </a>
-      <a href="#" class="item">Home</a>
-      <div class="ui simple dropdown item">
-        Dropdown <i class="dropdown icon"></i>
-        <div class="menu">
-          <a class="item" href="#">Link Item</a>
-          <a class="item" href="#">Link Item</a>
-          <div class="divider"></div>
-          <div class="header">Header Item</div>
-          <div class="item">
-            <i class="dropdown icon"></i>
-            Sub Menu
-            <div class="menu">
-              <a class="item" href="#">Link Item</a>
-              <a class="item" href="#">Link Item</a>
-            </div>
-          </div>
-          <a class="item" href="#">Link Item</a>
-        </div>
-      </div>
+      <a href="index.html" class="item">Home</a>
+      <a href="index.html" class="item">Start Now</a>
+      <a href="map.html" class="item">Interface</a>
     </div>
   </div>
 
@@ -205,7 +189,7 @@
             center:{lat: 24.935298, lng: 55.591337},
             radius: 50000
           });
- 
+
 
   window.setInterval(function() {
     var bounds = circle.getBounds();
@@ -226,11 +210,12 @@
 
 function createMarker(map, point, content) {
   var departments = ["A","G","F","T","P"];
+  var icons = ["assets/icons/bank.png", "assets/icons/hospital.png", "assets/icons/internet.png", "assets/icons/restaurant.png", "assets/icons/works.png"];
   var marker = new google.maps.Marker({
     position: point,
     map: map,
     animation: google.maps.Animation.DROP,
-    label: departments[Math.floor(Math.random()*departments.length)]
+    icon: icons[Math.floor(Math.random()*departments.length)]
   });
   google.maps.event.addListener(marker, "click", function(evt) {
     infowindow.setContent(content + "<br>" + marker.getPosition().toUrlValue(6));
