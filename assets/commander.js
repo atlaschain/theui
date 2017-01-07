@@ -70,12 +70,14 @@ function parsePrivateKeys() {
 }
 
 function parseKeys(keys, domPrefix){
-    var lastIndex = keys.length;
+    // var lastIndex = keys.length -1 ;
     var key = keys[0];
-    var user = gCryptUtil.parseUser(key.users[0].userId.userid);
-    jQuery('#kname').text(user.userName);
-    jQuery('#kemail').text(user.userEmail);
-    jQuery('#kpkeys').html('<pre class="ui label">' + key.armor() + '</pre>');
+    if(key) {
+      var user = gCryptUtil.parseUser(key.users[0].userId.userid);
+      jQuery('#kname').text(user.userName);
+      jQuery('#kemail').text(user.userEmail);
+      jQuery('#kpkeys').html('<pre class="ui label">' + key.armor() + '</pre>');
+    }
 }
 
 function xaddProfile() {
