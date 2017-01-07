@@ -28,44 +28,61 @@
     width: 98%;
     position: absolute !important;
   }
+
+  .controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  #pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+  }
+
+  #pac-input:focus {
+    border-color: #4d90fe;
+  }
+
+  .pac-container {
+    font-family: Roboto;
+  }
+
+
   </style>
 
-
-  <title>The Atlaschain</title>
+  <title>The Atlas | Atlaschain</title>
 </head>
 <body onload="initMap()">
   <div class="ui fixed menu">
     <div class="ui container">
-      <a href="#" class="header item">
+      <a href="index.html" class="header item">
         <img class="logo" src="assets/atlaschain-square.png">
         Atlaschain
       </a>
-      <a href="#" class="item">Home</a>
-      <div class="ui simple dropdown item">
-        Dropdown <i class="dropdown icon"></i>
-        <div class="menu">
-          <a class="item" href="#">Link Item</a>
-          <a class="item" href="#">Link Item</a>
-          <div class="divider"></div>
-          <div class="header">Header Item</div>
-          <div class="item">
-            <i class="dropdown icon"></i>
-            Sub Menu
-            <div class="menu">
-              <a class="item" href="#">Link Item</a>
-              <a class="item" href="#">Link Item</a>
-            </div>
-          </div>
-          <a class="item" href="#">Link Item</a>
-        </div>
-      </div>
+      <a href="index.html" class="item">Home</a>
+      <a href="index.html" class="item">Start Now</a>
+      <a href="map.html" class="item">Interface</a>
+      <a href="admin.html" class="item">Administrator</a>
     </div>
   </div>
 
   <div class="ui main container fluid">
-      <div class="ui grid inner-container">
+    <div class="ui grid inner-container">
       <div class="sixteen wide column">
         <div id="map"></div>
+        <input class="prompt controls" type="text" id="pac-input" placeholder="Search for a Place, Person or Document">
+
       </div>
 
     </div>
@@ -100,6 +117,5 @@
 <script src="assets/geojson.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAGM3Y6Y1TH-g5nwFfZhZOgSgpwUvtA1YM&libraries=geometry"></script>
 <script src="assets/map.js"></script>
-
 
 </html>
