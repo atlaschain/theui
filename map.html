@@ -114,74 +114,8 @@
 </body>
 <script src="node_modules/jquery/dist/jquery.js"></script>
 <script src="semantic/dist/semantic.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAGM3Y6Y1TH-g5nwFfZhZOgSgpwUvtA1YM&libraries=geometry&libraries=places">
-</script>
-
-<script>
-var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 8,
-    scrollwheel: false,
-    mapTypeId: 'roadmap',
-    center: {lat: 25.146204, lng: 55.217527}
-  });
-
-  var input = document.getElementById('pac-input');
-  var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-  // Load GeoJSON.
-  //map.data.loadGeoJson('https://raw.githubusercontent.com/atlaschain/geojson-helper/master/data/dubai_urban_boundary.geojson.json');
-
-  // Set the stroke width, and fill color for each polygon
-  map.data.setStyle({
-    fillColor: 'white',
-    strokeWeight: 1
-  });
-
-  var circle = new google.maps.Circle({
-    strokeWeight: 0,
-    fillOpacity: 0,
-    map: map,
-    center:{lat: 24.935298, lng: 55.591337},
-    radius: 50000
-  });
-
-
-  window.setInterval(function() {
-    var bounds = circle.getBounds();
-    map.fitBounds(bounds);
-    var sw = bounds.getSouthWest();
-    var ne = bounds.getNorthEast();
-    for (var i = 0; i < 1; i++) {
-      var ptLat = Math.random() * (ne.lat() - sw.lat()) + sw.lat();
-      var ptLng = Math.random() * (ne.lng() - sw.lng()) + sw.lng();
-      var point = new google.maps.LatLng(ptLat, ptLng);
-      if (google.maps.geometry.spherical.computeDistanceBetween(point, circle.getCenter()) < circle.getRadius()) {
-        createMarker(map, point, "marker " + i);
-      }
-    }
-  }, Math.random() * (6000 - 2000) + 2000);
-
-}
-
-function createMarker(map, point, content) {
-  var departments = ["A","G","F","T","P"];
-  var icons = ["assets/icons/bank.png", "assets/icons/hospital.png", "assets/icons/internet.png", "assets/icons/restaurant.png", "assets/icons/works.png"];
-  var marker = new google.maps.Marker({
-    position: point,
-    map: map,
-    animation: google.maps.Animation.DROP,
-    icon: icons[Math.floor(Math.random()*departments.length)]
-  });
-  google.maps.event.addListener(marker, "click", function(evt) {
-    infowindow.setContent(content + "<br>" + marker.getPosition().toUrlValue(6));
-    infowindow.open(map, marker);
-  });
-  return marker;
-}
-
-</script>
+<script src="assets/geojson.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAGM3Y6Y1TH-g5nwFfZhZOgSgpwUvtA1YM&libraries=geometry"></script>
+<script src="assets/map.js"></script>
 
 </html>
