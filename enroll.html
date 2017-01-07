@@ -136,14 +136,8 @@
 
 
 
-    $('#addProfile').click(function() {
-      $(this).addClass('loading');
-      newWallet('', function() {
-        $(this).removeClass('loading');
-
-      });
-
-
+    $('#enroll').click(function() {
+      window.location = 'map.html';  
     });
 
     parsePublicKeys();
@@ -196,34 +190,14 @@
     </div>
 
 
-    <div class="ui container">
-      <h2>Create Keys</h2>
-      <table class="ui fixed single line celled table">
+    <div class="ui center aligned container">
 
-      <tbody>
-        <tr>
-          <td>Name</td>
-          <td id="kname" class="ten wide"></td>
-        </tr>
-        <tr>
-          <td>Email</td>
-          <td id="kemail"></td>
-        </tr>
-
-        <tr>
-          <td>Public Key</td>
-          <td id="kpkeys"></td>
-        </tr>
-
-        <tr>
-          <td>Wallet Address</td>
-          <td id="addr">--</td>
-        </tr>
-
-      </tbody>
-    </table>
-
-    <button class="ui button fluid blue" id="addProfile" >Generate Wallet</button>
+      <div class="ui hidden divider"></div>
+      <div class="ui hidden divider"></div>
+      <div class="ui hidden divider"></div>
+      <div class="ui hidden divider"></div>
+    <div class="ui hidden divider"></div>
+    <button class="ui button big green" id="enroll" >Enroll</button>
 
     </div>
 
